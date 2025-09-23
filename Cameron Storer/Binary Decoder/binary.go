@@ -49,12 +49,17 @@ func binaryToASCII(stdin string) {
 	var output string
 	for i := bitSize; i < len(stdin); i += bitSize {
 		// convert the binary into numbers composed of bits
-		number, _ := strconv.ParseInt(stdin[i-bitSize:i], 2, bitSize+1)
+		number, err := strconv.ParseInt(stdin[i-bitSize:i], 2, bitSize+1)
+		// convert the numbers into ASCII characters
 		output += string(rune(number))
-		// fmt.Println(stdin[i-bitSize:i])
-		// fmt.Println(number)
+		// handle errors
+		if err != nil {
+			// print error message
+			fmt.Fprintf(os.Stderr, "Please only provide files holding strickly binary data.\n")
+			// kill program
+			os.Exit(0)
+		}
 	}
-	// fmt.Println(strconv.ParseInt("1001000", 2, bitSize))
 	// print out the output
 	fmt.Println(output)
 }
@@ -65,6 +70,4 @@ func main() {
 	stdin := storeStdin()
 	// decode the binary
 	binaryToASCII(stdin)
-
 }
-
