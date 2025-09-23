@@ -39,31 +39,24 @@ func storeStdin() string {
 func binaryToASCII(stdin string) {
 	// determine if the number of bits is even or odd
 	bitSize := 0
-	// if EVEN
-	if len(stdin)%2 == 0 {
+	// if divisible by 8
+	if len(stdin[:len(stdin)-1])%8 == 0 {
 		bitSize = 8
-	} else { // if ODD
+	} else { // otherwise
 		bitSize = 7
 	}
 	// separate the binary string into chucks
 	var output string
 	for i := bitSize; i < len(stdin); i += bitSize {
 		// convert the binary into numbers composed of bits
-		number, _ := strconv.ParseInt(stdin[i-bitSize:i], 2, bitSize)
-		fmt.Println(number)
+		number, _ := strconv.ParseInt(stdin[i-bitSize:i], 2, bitSize+1)
 		output += string(rune(number))
+		// fmt.Println(stdin[i-bitSize:i])
+		// fmt.Println(number)
 	}
-
+	// fmt.Println(strconv.ParseInt("1001000", 2, bitSize))
+	// print out the output
 	fmt.Println(output)
-
-	// handle error
-	/*if err != nil {
-		// print error message
-		fmt.Fprintf(os.Stderr, "Error reading the redirected standard input.\n")
-		// kill program
-		os.Exit(0)
-	}*/
-	// fmt.Printf("The binary string '%s' is equal to the number %d\n", stdin, number)
 }
 
 // main function
@@ -75,17 +68,3 @@ func main() {
 
 }
 
-/*
-1001000
-1100101
-1101100
-1101100
-1101111
-0100000
-1010111
-1101111
-1110010
-1101100
-1100100
-0100001
-*/
