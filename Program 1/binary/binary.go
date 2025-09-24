@@ -10,14 +10,7 @@ import (
 //import "bufio"
 
 func main() {
-
-	// Print the entire slice of arguments
-
-	// Check if at least one argument was provided (beyond the program name)
-	// if len(os.Args) > 1 {
-	// 	fmt.Println("The first argument you provided is:", os.Args[1])
-	// }
-
+	
 	test, err := os.ReadFile(os.Args[1])
 
 	if err != nil {
@@ -41,7 +34,7 @@ func main() {
 		}
 		tempe, err := strconv.ParseInt(raw[i:end], 2, 0)
 		if err != nil {
-			fmt.Printf("shat itself during parseint, %v", err)
+			fmt.Printf("error during parseint, %v", err)
 		}
 		letters = append(letters, tempe)
 
@@ -63,3 +56,4 @@ func main() {
 		fmt.Printf("%v", out[i])
 	}
 }
+
