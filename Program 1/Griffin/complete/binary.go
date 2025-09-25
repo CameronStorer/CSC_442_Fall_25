@@ -2,29 +2,37 @@ package main
 
 import (
 	"fmt"
-	//"io"
+	"io"
 	"os"
 	"strconv"
 )
 
 //import "bufio"
 
+// helper method to store the standard input
+// thank you cameron !!!
+func storeStdin() string {
+	// first, ensure that standard input has been redirected
+	stat, _ := os.Stdin.Stat()
+	if (stat.Mode() & os.ModeCharDevice) != 0 {
+		fmt.Println("Expected stdin !! Use ./binary < something.txt")
+		os.Exit(0)
+	}
+	// attempt to read the stdin by storing it and error checking
+	input, err := io.ReadAll(os.Stdin)
+	// if there is an error while reading stdin
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error reading the redirected standard input.\n")
+		// kill program
+		os.Exit(0)
+	}
+
+	return string(input)
+}
+
 func main() {
 
-	// Print the entire slice of arguments
-
-	// Check if at least one argument was provided (beyond the program name)
-	// if len(os.Args) > 1 {
-	// 	fmt.Println("The first argument you provided is:", os.Args[1])
-	// }
-
-	test, err := os.ReadFile(os.Args[1])
-
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	raw := string(test)
+	raw := storeStdin()
 
 	// detect 7-bit or 8-bit
 	var kind int = 7
