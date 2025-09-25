@@ -40,7 +40,7 @@ func main() {
 		kind = 8
 	}
 
-	// split into groups of 7/8
+	// split into groups of 7/8 int64s; stores decimal values in letters
 	letters := []int64{}
 	for i := 0; i < len(raw)-1; i += kind {
 		end := i + kind
@@ -49,24 +49,27 @@ func main() {
 		}
 		tempe, err := strconv.ParseInt(raw[i:end], 2, 0)
 		if err != nil {
-			fmt.Printf("shat itself during parseint, %v", err)
+			fmt.Printf("error during parseint, %v", err)
 		}
 		letters = append(letters, tempe)
 
 	}
+	// debug stuff
 	//fmt.Println("")
-
 	//fmt.Println((len(raw) - 1) % 8)
 	//fmt.Println(kind)
-
 	//fmt.Println(letters)
 	//out_int := []int{}
+
+	// output string slices
 	out := []string{}
 
+	// convert every int64 type into an int, then into a rune, then that into a string
 	for i := range letters {
 		out = append(out, string(rune(int(letters[i]))))
 	}
 
+	// finally print out every individual string
 	for i := range out {
 		fmt.Printf("%v", out[i])
 	}
