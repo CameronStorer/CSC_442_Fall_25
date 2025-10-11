@@ -17,12 +17,12 @@ import (
 
 // create some constant variables
 const (
-	METHOD   = "10"            // variable holding either 10 or 7 (number of right-most 'bits' to consider)
-	address  = "138.47.99.228" // ip address of ftp server
+	METHOD   = "10"              // variable holding either 10 or 7 (number of right-most 'bits' to consider)
+	address  = "138.47.99.161" // ip address of ftp server
 	port     = "21"            // port of ftp server
 	username = "anonymous"     // ftp server username
 	password = ""              // ftp server password
-	path     = "/10/"          // path on ftp server to connect to
+	path     = "/"             // path on ftp server to connect to
 )
 
 // beginning of main runtime
