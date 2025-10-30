@@ -20,7 +20,7 @@ import (
 const (
 	address  = "138.47.99.228" // chat server address
 	port     = "31337"         // chat server port
-	msForBit = 65000000        // ms value that will determine when to call a time 1 or 0
+	nsForBit = 63900000        // ns value that will determine when to call a time 1 or 0
 )
 
 // helper method to convert binary strings into ASCII
@@ -96,16 +96,16 @@ func main() {
 		if n > 0 {
 			// convert the elapsed time since previous character to a bit
 			// value
-			if time.Since(prevChar).Nanoseconds() <= msForBit {
+			if time.Since(prevChar).Nanoseconds() <= nsForBit {
 				currentBit = 0
 			} else {
 				currentBit = 1
 			}
 			bitValues += strconv.Itoa(currentBit)
-			fmt.Print(currentBit)
-			// fmt.Println("\t", time.Since(prevChar).Nanoseconds())
-			// fmt.Printf(string(buffer[:n]))
-			prevChar = time.Now()
+			//fmt.Print(currentBit)
+			//fmt.Println("\t", time.Since(prevChar).Nanoseconds())
+			fmt.Printf(string(buffer[:n]))
+			//prevChar = time.Now()
 		}
 	}
 	// ensure the connection closes when no longer needed
